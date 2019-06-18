@@ -66,7 +66,10 @@ function JSlider(options) {
 						slider.find('.bubble').filter('[data-go="' + $(_.active).data('slide') + '"]').addClass('active');
 					}
 				}
-			_.startSlider();
+
+				if(_.playing == true) {
+					_.startSlider();
+				}
 		}
 
 		// Same as next slide, just in reverse.
@@ -104,7 +107,9 @@ function JSlider(options) {
 					},50)
 				}
 
-			_.startSlider();
+				if(_.playing == true) {
+					_.startSlider();
+				}
 		}
 
 		// Special function only used with the Bubbles. Technically could be used outside too if you're smart.
