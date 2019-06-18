@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JSlider Example Image Slider</title>
+    <!-- Include Boodstrap for examples-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+
+        .slider {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .slide {
+            flex-shrink: 0;
+        }
+
+        .slide img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="slider-section" id="slideBox">
+            <div class="slider" id="slider">
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1557801388-3d52784be549?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1557802891-958ecf3d5992?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1557231146-afde25e6598f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1389&q=80">
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1557360798-c91519105dd7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1491&q=80">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <button type="button" class="btn btn-primary" onclick="slider.nextSlide(event)">Next</button>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../jslider.js"></script>
+    <script type="text/javascript">
+        var slider = new JSlider({
+            slider: '#slideBox', // Slider to hold other possible additions like bullet nav etc.
+            slideHold: '#slider', // Box section containing actual slides
+            autoStart: true
+        });
+    </script>
+</body>
+</html>

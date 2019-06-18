@@ -1,4 +1,4 @@
-function Slider(options) {
+function JSlider(options) {
 		var _ = this;
 		// Setup attributes to take an options object
 		_.slider = $(options.slider);
@@ -22,11 +22,17 @@ function Slider(options) {
 		// Go to Next Slide
 		_.nextSlide = function(e) {
 			// Check if there is another slide, if not, start at the beginning.
-			if(!$(e.target).hasClass('used')) {
-				$(e.target).addClass('used');
-					setTimeout(function(){
-						$(e.target).removeClass('used');
-					}, 750);
+			_.stopSlider();
+			if(e) {
+				if(!$(e.target).hasClass('used')) {
+					$(e.target).addClass('used');
+						setTimeout(function(){
+							$(e.target).removeClass('used');
+						}, 750);
+				} else {
+					return;
+				}
+			}
 
 				if(_.active.next().length) {
 					
@@ -60,16 +66,23 @@ function Slider(options) {
 						slider.find('.bubble').filter('[data-go="' + $(_.active).data('slide') + '"]').addClass('active');
 					}
 				}
-			}
+			_.startSlider();
 		}
 
 		// Same as next slide, just in reverse.
 		_.prevSlide = function(e) {
-			if(!$(e.target).hasClass('used')) {
-				$(e.target).addClass('used');
-					setTimeout(function(){
-						$(e.target).removeClass('used');
-					}, 750);
+			_.stopSlider();
+			
+			if(e) {
+				if(!$(e.target).hasClass('used')) {
+					$(e.target).addClass('used');
+						setTimeout(function(){
+							$(e.target).removeClass('used');
+						}, 750);
+				} else {
+					return;
+				}
+			}
 			
 				if(_.active.prev().length) {
 					_.active.removeClass('active');
@@ -90,8 +103,8 @@ function Slider(options) {
 						scrollLeft: _.active.position().left
 					},50)
 				}
-			}
-			
+
+			_.startSlider();
 		}
 
 		// Special function only used with the Bubbles. Technically could be used outside too if you're smart.
@@ -146,10 +159,10 @@ function Slider(options) {
 				// If we want the slider to be autoplaying, we want the user to reset the timer if they take control. So we check if it's playing. But if the slider isn't supposed to be playing, then we just move to the next slide.
 				if(_.playing == true) {
 					_.stopSlider();
-					_.nextSlide();
+					_.nextSlide(e);
 					_.startSlider();
 				} else {
-					_.nextSlide();
+					_.nextSlide(e);
 				}
 			
 			});
@@ -158,10 +171,10 @@ function Slider(options) {
 				// See above func
 				if(_.playing == true) {
 					_.stopSlider();
-					_.prevSlide();
+					_.prevSlide(e);
 					_.startSlider();
 				} else {
-					_.prevSlide();
+					_.prevSlide(e);
 				}
 			});
 		}
