@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JSlider Example Image Slider</title>
+    <!-- Include Boodstrap for examples-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            
+        }
+
+        .slider-section {
+            width: 100%;
+        }
+
+        .slider {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+            
+        }
+        
+        .slide {
+            flex-shrink: 0;
+            width: 100%;
+        }
+
+        .slide img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+        }
+
+        .slide-controller {
+            width: 500px;
+            height: 10px;
+        }
+
+        .control-nav {
+            display: flex;
+        }
+
+        .bubble {
+            width: 15px;
+            height: 15px;
+            margin: 10px;
+            background: #007bff;
+            border-radius: 50%;
+        }
+
+        .bubble:hover {
+            background: #17a2b8;
+        }
+
+        .bubble.active {
+            background: #28a745;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a href="/" class="navbar-brand">JSlider</a>
+            
+        </div>
+    </nav>
+    <div class="container">
+
+        <div class="slider-section" id="slideBox">
+            <div class="slider" id="slider">
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1557801388-3d52784be549?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1557802891-958ecf3d5992?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1557231146-afde25e6598f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1389&q=80">
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1557360798-c91519105dd7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1491&q=80">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="btn-group slide-controller" id="nav">
+
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="slider.prevSlide(event)">
+            Prev
+        </button>
+        <button class="btn btn-primary" onclick="slider.nextSlide(event)">
+            Next
+        </button>
+    </div>
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary" id="playPause">Play</button>
+    </div>
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../jslider.js"></script>
+    <script type="text/javascript">
+        var slider = new JSlider({
+            slider: '#slideBox', // Slider to hold other possible additions like bullet nav etc.
+            slideHold: '#slider', // Box section containing actual slides
+            controls: '#controls',
+            //autoStart: true
+            nav: '#nav',
+            gestures: true
+            
+        });
+
+        var playPause = $('#playPause');
+
+        playPause.on('click', function(e) {
+            
+            e.stopPropagation();
+            if(slider.playing == true) {
+                slider.stopSlider();
+                $(this).text('Play');
+            } else {
+                slider.startSlider();
+                $(this).text('Pause');
+            }
+            console.log(slider.playing);
+        });
+    </script>
+</body>
+</html>

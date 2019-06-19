@@ -4,25 +4,29 @@ function JSlider(options) {
 		_.slider = $(options.slider);
 		_.slideHold = $(options.slideHold);
 		_.slides = _.slideHold.children();
-		_.controls = $(options.controls);
+		_.controls = options.controls ? $(options.controls) : false ;
 		_.timer = options.timer ? options.timer : 5000;
 		_.timing;
-		_.nav = options.nav ? options.nav : false;
-		_.playing = options.autoStart ? options.autoStart : false;
+		_.nav = options.nav ? $(options.nav) : false;
+		_.autoStart = options.autoStart ? true : false;
 		_.gestures = options.gestures ? options.gestures : false;
-
+		_.isNav = _.nav ? true : false;
+		_.playing = _.autoStart ? true : false;
 
 		var slider = $(_.slider);
+		if(_.slideHold) {
+			_.slideHold.css('position', 'relative');
+		}
 		// Set our First Slide
 		_.active = _.slides.first();
 		_.active.addClass('active');
-
+		
 		// Use Functions
 
 		// Go to Next Slide
 		_.nextSlide = function(e) {
+
 			// Check if there is another slide, if not, start at the beginning.
-			_.stopSlider();
 			if(e) {
 				if(!$(e.target).hasClass('used')) {
 					$(e.target).addClass('used');
@@ -47,11 +51,10 @@ function JSlider(options) {
 						scrollLeft: '+=' + _.active.position().left
 					}, 'slow');
 
+					
+
 					// If the nav bubbles option is turned on, make this light up to represent the active slide.
-					if(_.nav == true) {
-						slider.find('.bubble').removeClass('active');
-						slider.find('.bubble').filter('[data-go="' + $(_.active).data('slide') + '"]').addClass('active');
-					}
+					
 				} else {
 					// Same format as above just on reset
 					_.active.removeClass('active');
@@ -60,21 +63,25 @@ function JSlider(options) {
 					_.slideHold.animate({
 						scrollLeft: '+=' + _.active.position().left
 					}, 'slow');
-
-					if(_.nav == true) {
-						slider.find('.bubble').removeClass('active');
-						slider.find('.bubble').filter('[data-go="' + $(_.active).data('slide') + '"]').addClass('active');
-					}
+					
+					
 				}
 
 				if(_.playing == true) {
+					_.stopSlider();
 					_.startSlider();
 				}
+
+				if(_.isNav) {
+					_.nav.find('.bubble').removeClass('active');
+					_.nav.find('.bubble').filter('[data-go="' + $(_.active).data('slide') + '"]').addClass('active');
+				}
+
+				
 		}
 
 		// Same as next slide, just in reverse.
 		_.prevSlide = function(e) {
-			_.stopSlider();
 			
 			if(e) {
 				if(!$(e.target).hasClass('used')) {
@@ -95,10 +102,6 @@ function JSlider(options) {
 						scrollLeft: '+=' + _.active.position().left
 					}, 'slow');
 
-					if(_.nav == true) {
-						slider.find('.bubble').removeClass('active');
-						slider.find('.bubble').filter('[data-go="' + $(_.active).data('slide') + '"]').addClass('active');
-					}
 				} else {
 					_.slideHold.animate({
 						scrollLeft: (_.active.position().left + 50)
@@ -108,16 +111,22 @@ function JSlider(options) {
 				}
 
 				if(_.playing == true) {
+					_.stopSlider();
 					_.startSlider();
+				}
+
+				if(_.isNav) {
+					_.nav.find('.bubble').removeClass('active');
+					_.nav.find('.bubble').filter('[data-go="' + $(_.active).data('slide') + '"]').addClass('active');
 				}
 		}
 
 		// Special function only used with the Bubbles. Technically could be used outside too if you're smart.
-		_.goToSlide = function(slide){
+		_.goToSlide = function(slide) {
 			// Do the same active passing, removing it from the current slide.
 			_.active.removeClass('active');
 			// Every bubble has a data-go statement, which points to it's related slide. The slide variable is data-slide. If they match, set that slide to be our active slide.
-			_.active = slider.find('.slide').filter('[data-slide="' + slide +'"]');
+			_.active = _.slideHold.find('.slide').filter('[data-slide="' + slide +'"]');
 			// Give that slide the active class
 			_.active.addClass('active');
 			// Animate it.
@@ -126,8 +135,8 @@ function JSlider(options) {
 				}, 'slow');
 
 			// Same Bubble active class passing, no if statement because this function should only work if that is on anyways.
-			slider.find('.bubble').removeClass('active');
-			slider.find('.bubble').filter('[data-go="' + $(_.active).data('slide') + '"]').addClass('active');
+			_.nav.find('.bubble').removeClass('active');
+			_.nav.find('.bubble').filter('[data-go="' + $(_.active).data('slide') + '"]').addClass('active');
 			if(_.playing == true) {
 				_.stopSlider();
 				_.startSlider();
@@ -142,7 +151,7 @@ function JSlider(options) {
 		}
 		_.stopSlider = function() {
 			// Tell our slider it's not running 
-			_playing = false;
+			_.playing = false;
 			// Stop the timer
 			clearInterval(_.timing);
 		}
@@ -195,9 +204,9 @@ function JSlider(options) {
 			});
 
 			//Actually adds the bubbles to that div and puts it in our slider controls section
-			_.controls.append(controlNav);
+			_.nav.append(controlNav);
 
-			slider.find('.bubble').each(function(index){
+			_.nav.find('.bubble').each(function(index){
 				// Sets the first bubble to be active since this only fires on creation.
 				if(index == 0) {
 					$(this).addClass('active');
@@ -248,10 +257,7 @@ function JSlider(options) {
 						}, 'fast');
 				}
 			});
-			
-			
-
-			
+				
 		}
 
 		// Stole this handy script
@@ -269,9 +275,11 @@ function JSlider(options) {
 		};
 
 		//Setup the controls when instantiated.
-		_.setupControls();
+		if(_.controls) {
+			_.setupControls();
+		}
 		//Check if nav is true then make the nav and connect the slides to the bubble nav.
-		if(_.nav == true) {
+		if(_.isNav) {
 			_.makeNav();
 			_.setupSlides();
 		}
