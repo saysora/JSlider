@@ -234,7 +234,7 @@ function JSlider(options) {
 				x1 = scrollPos + (touchStart - firstTouch.clientX);
 				dist = touchStart - firstTouch.clientX;
 				_.slideHold.scrollLeft(x1);
-				console.log(dist);
+				
 			});
 
 			_.slideHold.on('touchend', function(e){
