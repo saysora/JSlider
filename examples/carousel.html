@@ -1,146 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>JSlider Example Image Slider</title>
     <!-- Include Boodstrap for examples-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      .container {
+        width: 100%;
+      }
 
-        .container {
-            width: 100%;
-            
-        }
+      .slider-section {
+        width: 100%;
+      }
 
-        .slider-section {
-            width: 100%;
-        }
+      .slider {
+        display: flex;
+        overflow: hidden;
+        width: 100%;
+      }
 
-        .slider {
-            display: flex;
-            overflow: hidden;
-            width: 100%;
-            
-        }
-        
-        .slide {
-            flex-shrink: 0;
-            width: 100%;
-        }
+      .slide {
+        flex-shrink: 0;
+        width: 100%;
+      }
 
-        .slide img {
-            max-width: 100%;
-            width: 100%;
-            height: auto;
-        }
+      .slide img {
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+      }
 
-        .slide-controller {
-            width: 500px;
-            height: 10px;
-        }
+      .slide-controller {
+        /* width: 500px; */
+      }
 
-        .control-nav {
-            display: flex;
-        }
+      .control-nav {
+        display: flex;
+      }
 
-        .bubble {
-            width: 15px;
-            height: 15px;
-            margin: 10px;
-            background: #007bff;
-            border-radius: 50%;
-        }
+      .bubble {
+        width: 15px;
+        height: 15px;
+        margin: 10px;
+        background: #3742fa;
+        border-radius: 50%;
+      }
 
-        .bubble:hover {
-            background: #17a2b8;
-        }
+      .bubble:hover {
+        background: #5352ed;
+      }
 
-        .bubble.active {
-            background: #28a745;
-        }
-        
+      .bubble.active {
+        background: #ff4757;
+      }
 
+      .btn-primary {
+        background: #3742fa;
+        border-color: #3742fa;
+      }
+
+      .btn-primary:hover {
+        background: #5352ed;
+        border-color: #5352ed;
+      }
+
+      .btn-primary:active {
+        background: #ff4757;
+        border-color: #ff4757;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="navbar navbar-dark bg-dark">
-        <div class="container">
-            <a href="/" class="navbar-brand">JSlider</a>
-            
-        </div>
+      <div class="container">
+        <a href="/" class="navbar-brand">JSlider</a>
+      </div>
     </nav>
     <div class="container">
-
-        <div class="slider-section" id="slideBox">
-            <div class="slider" id="slider">
-                <div class="slide">
-                    <img src="https://images.unsplash.com/photo-1557801388-3d52784be549?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
-                </div>
-                <div class="slide">
-                    <img src="https://images.unsplash.com/photo-1557802891-958ecf3d5992?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
-                </div>
-                <div class="slide">
-                    <img src="https://images.unsplash.com/photo-1557231146-afde25e6598f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1389&q=80">
-                </div>
-                <div class="slide">
-                    <img src="https://images.unsplash.com/photo-1557360798-c91519105dd7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1491&q=80">
-                </div>
-            </div>
+      <div class="slider-section" id="slideBox">
+        <div class="slider" id="slider">
+          <div class="slide">
+            <img
+              src="https://images.unsplash.com/photo-1557801388-3d52784be549?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+            />
+          </div>
+          <div class="slide">
+            <img
+              src="https://images.unsplash.com/photo-1557802891-958ecf3d5992?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+            />
+          </div>
+          <div class="slide">
+            <img
+              src="https://images.unsplash.com/photo-1557231146-afde25e6598f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1389&q=80"
+            />
+          </div>
+          <div class="slide">
+            <img
+              src="https://images.unsplash.com/photo-1557360798-c91519105dd7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1491&q=80"
+            />
+          </div>
         </div>
-
+      </div>
     </div>
-    <div class="btn-group slide-controller" id="nav">
-
-    </div>
-    <div class="btn-group">
-        <button class="btn btn-primary" onclick="slider.prevSlide(event)">
-            Prev
-        </button>
-        <button class="btn btn-primary" onclick="slider.nextSlide(event)">
-            Next
-        </button>
+    <div class="container py-2">
+      <div
+        class="btn-group slide-controller d-flex justify-content-center"
+        id="nav"
+      ></div>
     </div>
 
-    <div class="btn-group">
-        <button type="button" class="btn btn-primary" id="playPause">Play</button>
+    <div class="btn-group d-flex justify-content-center py-5">
+      <button class="btn btn-primary" onclick="slider.prevSlide(event)">
+        Prev
+      </button>
+      <button type="button" class="btn btn-primary" id="playPause">Play</button>
+      <button class="btn btn-primary" onclick="slider.nextSlide(event)">
+        Next
+      </button>
     </div>
-    
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../jslider.js"></script>
+    <div id="controls" class="control-nav"></div>
+
+    <script type="text/javascript" src="jslider.js"></script>
     <script type="text/javascript">
-        var slider = new JSlider({
-            slider: '#slideBox', // Slider to hold other possible additions like bullet nav etc.
-            slideHold: '#slider', // Box section containing actual slides
-            controls: '#controls',
-            //autoStart: true
-            nav: '#nav',
-            gestures: true
-            
-        });
+      var slider = new JSlider({
+        slider: "#slideBox", // Slider to hold other possible additions like bullet nav etc.
+        slideHold: "#slider", // Box section containing actual slides
+        //autoStart: true
+        nav: "#nav",
+        gestures: true
+      });
 
-        var playPause = $('#playPause');
+      var playPause = document.querySelector("#playPause");
 
-        playPause.on('click', function(e) {
-            
-            e.stopPropagation();
-            if(slider.playing == true) {
-                slider.stopSlider();
-                $(this).text('Play');
-            } else {
-                slider.startSlider();
-                $(this).text('Pause');
-            }
-            console.log(slider.playing);
-        });
+      playPause.addEventListener("click", function (e) {
+        e.stopPropagation();
+        if (slider.playing == true) {
+          slider.stopSlider();
+          e.target.textContent = "Play";
+        } else {
+          slider.startSlider();
+          e.target.textContent = "Pause";
+        }
+        console.log(slider.playing);
+      });
     </script>
-</body>
+  </body>
 </html>
