@@ -2,7 +2,9 @@
 
 I wanted to make a versatile and multiuse slider for my own scenarios. I especially didn't want the slider to be limited to just the kind that sits boringly at the top of websites, but a boilerplate for a customizable slider with features at your fingertips.
 
-So, with some jQuery (which I will be happy to go more vague from there) I present JSlider.
+## Update - No More Jquery
+
+So, with ~~some jQuery (which I will be happy to go more vague from there)~~ I present JSlider.
 
 The CSS is completely up to you to use.
 
@@ -69,8 +71,6 @@ The idea of being versatile means there are different things you can do when you
 
 * `slider`
     - Setter wanting a string of the id of the div to be the slider. Example: `slider: '#dmyiv'`
-* `controls`
-    - Setter wanting a string of the id of the div to be the controls. Example: `controls: '#controls'` Deprecated soon.
 * `timer`
     - Setter wanting the amount of time between the slide changing to the next. *Uses Miliseconds* Defaults to ```5000```. Example `timer: 7000 // 7 seconds`
 * `nav`
