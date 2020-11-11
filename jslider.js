@@ -49,7 +49,11 @@ function JSlider(options) {
       _.active.classList.add("active");
       // Animate the scroll for the slider to reach that slide particularly
 
-      _.active.scrollIntoView({ behavior: "smooth", inline: "nearest" });
+      var curIndex = Array.from(_.slides).indexOf(_.active);
+      _.slideHold.scrollTo({
+        left: _.active.scrollWidth * curIndex,
+        behavior: "smooth"
+      });
 
       // If the nav bubbles option is turned on, make this light up to represent the active slide.
     } else {
@@ -57,7 +61,12 @@ function JSlider(options) {
       _.active.classList.remove("active");
       _.active = _.slides[0];
       _.active.classList.add("active");
-      _.active.scrollIntoView({ behavior: "smooth", inline: "nearest" });
+
+      var curIndex = Array.from(_.slides).indexOf(_.active);
+      _.slideHold.scrollTo({
+        left: _.active.scrollWidth * curIndex,
+        behavior: "smooth"
+      });
     }
 
     if (_.playing == true) {
@@ -90,13 +99,20 @@ function JSlider(options) {
       _.active.classList.remove("active");
       _.active = _.active.previousElementSibling;
       _.active.classList.add("active");
-
-      _.active.scrollIntoView({ behavior: "smooth", inline: "end" });
+      var curIndex = Array.from(_.slides).indexOf(_.active);
+      _.slideHold.scrollTo({
+        left: _.active.scrollWidth * curIndex,
+        behavior: "smooth"
+      });
     } else {
       _.active.classList.remove("active");
       _.active = _.slides[_.slides.length - 1];
       _.active.classList.add("active");
-      _.active.scrollIntoView({ behavior: "smooth", inline: "end" });
+      var curIndex = Array.from(_.slides).indexOf(_.active);
+      _.slideHold.scrollTo({
+        left: _.active.scrollWidth * curIndex,
+        behavior: "smooth"
+      });
     }
 
     if (_.playing == true) {
@@ -120,8 +136,12 @@ function JSlider(options) {
     _.active = _.slideHold.querySelector('.slide[data-slide="' + slide + '"]');
     // Give that slide the active class
     _.active.classList.add("active");
-    // Animate it.
-    _.active.scrollIntoView({ behavior: "smooth" });
+
+    var curIndex = Array.from(_.slides).indexOf(_.active);
+    _.slideHold.scrollTo({
+      left: _.active.scrollWidth * curIndex,
+      behavior: "smooth"
+    });
 
     // Same Bubble active class passing, no if statement because this function should only work if that is on anyways.
     document.querySelector(".bubble.active").classList.remove("active");
@@ -228,7 +248,11 @@ function JSlider(options) {
   // Stole this handy script
   var doit;
   function resizedw() {
-    _.active.scrollIntoView({ behavior: "smooth", inline: "end" });
+    var curIndex = Array.from(_.slides).indexOf(_.active);
+    _.slideHold.scrollTo({
+      left: _.active.scrollWidth * curIndex,
+      behavior: "smooth"
+    });
   }
   window.onresize = function () {
     clearTimeout(doit);
